@@ -1,0 +1,29 @@
+<h2>Edit your task here</h2>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-4"></div>
+		<div class="col-lg-4">
+		<form>
+			<div class="alert alert-success" ng-if="message">
+  				{{message}}
+			</div>
+			<div class="alert alert-danger" ng-if="error">
+  				{{error}}
+			</div>
+			<div class="form-group">
+    			<label>Subject:</label>
+    			<input type="text" class="form-control" ng-model="task.subject" placeholder="enter subject">
+  			</div>
+			<div class="form-group">
+				<label>isCompleted:</label>
+				<input type="text" class="form-control" ng-model="task.isCompleted" placeholder="enter true or false">
+			</div>
+			<!--your sending the id of the task to be edited through the function this is
+			used to go to the url/id you specified which means a single task in the array of objects-->
+			<button class="btn btn-success" ng-click="editTask()">Submit</button>
+			<a class="btn btn-primary" href="#/">Go Back</a>
+		</form>	
+		</div>
+		<div class="col-lg-4"></div>
+	</div>
+</div>

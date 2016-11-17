@@ -1,0 +1,60 @@
+<div class="container tasks">
+      <!--This button is to toggle the completed tasks div-->
+      <button class="btn btn-primary showdiv" ng-click="showDiv = !showDiv">Show completed tasks</button>
+      <!--At first this div should not be shown so it is just showdiv it means false-->
+      <div class="container" ng-show="showDiv">
+       <h2>Tasks that are completed</h2>
+       <!-- Remember you used $eval to use interpolation inside of ng-if directive
+       check out this "http://stackoverflow.com/questions/23265948/why-ngif-has-higher-priority-than-interpolate"-->
+        <div class="row" ng-repeat="x in tasks">
+        <div class="col-lg-3"></div>
+          <div class="col-lg-6" ng-hide="$eval(x.isCompleted)==false">
+          <!--$index is used to pass in the index of x here (x in tasks)-->
+            <h5 ng-dblclick="redirect($index)"><strong>Subject: </strong>{{x.subject}}</h5>
+            <h5 ng-dblclick="redirect($index)"><strong>Completed or not: </strong>{{x.isCompleted}}</h5>
+            <button class="btn btn-danger" ng-click="removeTask(x.id);  $event.stopPropagation();">Delete</button><!--you used stop propogation cos this event is causing the parent event to
+            occur earlier you used button inside of a form-->
+          </div>
+        <div class="col-lg-3"></div>
+        </div>
+      </div>
+	    <hr>
+        <h4>look here for any messages | double click on any task to edit them</h4>
+      
+      <div class="alert alert-success" ng-if="message">
+        {{message}}
+      </div>
+      <div class="alert alert-danger" ng-if="error">
+          {{error}}
+      </div>
+      <hr>
+   <h2>All the existing Tasks to be completed/in-progress</h2>
+    <div class="row" ng-repeat="x in tasks | orderBy : 'subject'">
+    <div class="col-lg-3"></div>
+      <div class="col-lg-6">
+        <h5 ng-dblclick="redirect(x.id)"><strong>Subject: </strong>{{x.subject}}</h5>
+        <h5 ng-dblclick="redirect(x.id)" ><strong>Completed or not: </strong>{{x.isCompleted}}</h5>
+        <button class="btn btn-danger" ng-click="removeTask(x.id);  $event.stopPropagation();">Delete</button>
+      </div>
+    <div class="col-lg-3"></div>
+  </div>
+</div>
+
+<div class="container addtask">
+  <div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-5">
+      <form ng-submit="addTask()">
+        <div class="form-group">
+          <label>Enter new task's subject:</label>
+          <input type="text" class="form-control" ng-model="subject">
+          <label>isCompleted:</label>
+          <input type="text" class="form-control" ng-model="isCompleted">
+        </div>
+        <button type="submit" class="btn btn-primary" ng-submit="addTask()">Add Task</button>
+      </form>
+    </div>
+    <div class="col-lg-4"></div>
+  </div>
+</div>
+
